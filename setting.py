@@ -11,3 +11,4 @@ class Parameter(object):
     connection = ['+']
     num_of_genes = 3
     IS_elements_length = 3
+    RIS_elements_length = 3
