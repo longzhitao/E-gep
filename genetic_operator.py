@@ -28,7 +28,7 @@ def insert_transposition(chromosome: c.Chromosome) -> None:
     :return:
     """
     inserted_gene_index, source_gene_genotype, inserted_gene_genotype = \
-        random_select_operation(chromosome)
+        random_select_transposition(chromosome)
 
     segment_length = rd.randint(1, Parameter.IS_elements_length)
     pre_index = rd.randint(0, Parameter.gene_length - segment_length)
@@ -53,7 +53,7 @@ def insert_transposition(chromosome: c.Chromosome) -> None:
 
 def root_insert_transposition(chromosome: c.Chromosome) -> None:
     inserted_gene_index, source_gene_genotype, inserted_gene_genotype = \
-        random_select_operation(chromosome)
+        random_select_transposition(chromosome)
 
     source_select_list = list()
     for i in range(Parameter.head_length):
@@ -73,7 +73,15 @@ def root_insert_transposition(chromosome: c.Chromosome) -> None:
     pass
 
 
-def random_select_operation(chromosome: c.Chromosome) -> tuple:
+def gene_transposition(chromosome: c.Chromosome) -> None:
+    pre_gene_index = rd.randint(0, Parameter.num_of_genes - 1)
+    post_gene_index = rd.randint(0, Parameter.num_of_genes - 1)
+    chromosome.genes[pre_gene_index], chromosome.genes[post_gene_index]\
+        = chromosome.genes[post_gene_index], chromosome.genes[pre_gene_index]
+    chromosome.update()
+
+
+def random_select_transposition(chromosome: c.Chromosome) -> tuple:
     inserted_gene_index = rd.randint(0, Parameter.num_of_genes - 1)
     source_gene_genotype = chromosome.genes[rd.randint(0, Parameter.num_of_genes - 1)].genotype
     inserted_gene_genotype = chromosome.genes[inserted_gene_index].genotype

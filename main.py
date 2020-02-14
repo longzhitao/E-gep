@@ -3,6 +3,9 @@ import sys
 from PySide2.QtWidgets import QApplication, QMainWindow
 
 import gene
+import setting
+import chromosome
+import genetic_operator as go
 
 
 class main(QMainWindow):
@@ -15,7 +18,20 @@ if __name__ == "__main__":
     # window = main()
     # window.show()
     # sys.exit(app.exec_())
-    g = gene.Gene()
-    print(g)
-    g.mutation()
-    print(g)
+    c = chromosome.Chromosome()
+    print(c.genotype)
+    go.mutation(c)
+    print(c.genotype)
+    go.insert_transposition(c)
+    print(c.genotype)
+    go.root_insert_transposition(c)
+    print(c.genotype)
+    go.gene_transposition(c)
+    print(c.genotype)
+
+
+
+
+
+
+
