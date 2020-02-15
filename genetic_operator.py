@@ -81,6 +81,17 @@ def gene_transposition(chromosome: c.Chromosome) -> None:
     chromosome.update()
 
 
+def one_point_recombination(pre_chromosome: c.Chromosome, post_chromosome: c.Chromosome) -> tuple:
+    pre_genotype = list(''.join(pre_chromosome.genotype))
+    post_genotype = list(''.join(post_chromosome.genotype))
+    point_index = rd.randint(0, len(pre_genotype) - 1)
+
+    pre_genotype[point_index:], post_genotype[point_index:] = \
+        post_genotype[point_index:], pre_genotype[point_index:]
+
+    return c.Chromosome(pre_genotype), c.Chromosome(post_genotype)
+
+
 def random_select_transposition(chromosome: c.Chromosome) -> tuple:
     inserted_gene_index = rd.randint(0, Parameter.num_of_genes - 1)
     source_gene_genotype = chromosome.genes[rd.randint(0, Parameter.num_of_genes - 1)].genotype
