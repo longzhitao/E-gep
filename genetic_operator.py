@@ -92,6 +92,43 @@ def one_point_recombination(pre_chromosome: c.Chromosome, post_chromosome: c.Chr
     return c.Chromosome(pre_genotype), c.Chromosome(post_genotype)
 
 
+def two_point_recombination(pre_chromosome: c.Chromosome, post_chromosome: c.Chromosome) -> tuple:
+    """
+
+    :param pre_chromosome:
+    :param post_chromosome:
+    :return:
+    """
+    pre_genotype = list(''.join(pre_chromosome.genotype))
+    post_genotype = list(''.join(post_chromosome.genotype))
+    pre_point_index = rd.randint(0, len(pre_genotype) - 2)
+    post_point_index = rd.randint(pre_point_index + 1, len(pre_genotype) - 1)
+
+    pre_genotype[pre_point_index: post_point_index], post_genotype[pre_point_index: post_point_index] = \
+        post_genotype[pre_point_index:post_point_index], pre_genotype[pre_point_index: post_point_index]
+
+    return c.Chromosome(pre_genotype), c.Chromosome(post_genotype)
+
+
+def gene_recombination(pre_chromosome: c.Chromosome, post_chromosome: c.Chromosome) -> tuple:
+    """
+
+    :param pre_chromosome:
+    :param post_chromosome:
+    :return:
+    """
+    pre_genotype = list(''.join(pre_chromosome.genotype))
+    post_genotype = list(''.join(post_chromosome.genotype))
+
+    gene_index = rd.randint(0, Parameter.num_of_genes - 1)
+    point_index = gene_index * Parameter.num_of_genes
+
+    pre_genotype[point_index:], post_genotype[point_index:] = \
+        post_genotype[point_index:], pre_genotype[point_index:]
+
+    return c.Chromosome(pre_genotype), c.Chromosome(post_genotype)
+
+
 def random_select_transposition(chromosome: c.Chromosome) -> tuple:
     inserted_gene_index = rd.randint(0, Parameter.num_of_genes - 1)
     source_gene_genotype = chromosome.genes[rd.randint(0, Parameter.num_of_genes - 1)].genotype
