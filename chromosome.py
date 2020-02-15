@@ -12,8 +12,16 @@ class Chromosome(object):
 
     """
 
-    def __init__(self):
-        self.generate()
+    def __init__(self, genotype: list = None):
+        if genotype is None:
+            self.generate()
+        else:
+            self.genotype = list()
+            self.genes = list()
+            for i in range(Parameter.num_of_genes):
+                gene = g.Gene(genotype[i * Parameter.gene_length: i * Parameter.gene_length + Parameter.gene_length])
+                self.genes.append(gene)
+                self.genotype.append(''.join(gene.genotype))
         pass
 
     def __str__(self):

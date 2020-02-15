@@ -16,9 +16,11 @@ class Gene(object):
         fitness:
     """
 
-    def __init__(self):
-        super().__init__()
-        self.generate()
+    def __init__(self, genotype: list = None):
+        if genotype is None:
+            self.generate()
+        else:
+            self.genotype = genotype
         pass
 
     def __str__(self):
