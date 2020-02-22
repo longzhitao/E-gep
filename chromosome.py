@@ -7,7 +7,7 @@ from setting import Parameter
 
 
 class Chromosome(object):
-    __slots__ = ('_genes', '_genotype', '_phenotype', '_fitness')
+    __slots__ = ('_genes', '_genotype', '_fitness')
     """
 
     """
@@ -44,20 +44,11 @@ class Chromosome(object):
         self._genotype = genotype
 
     @property
-    def phenotype(self) -> list:
-        return self._phenotype
-
-    @phenotype.setter
-    def phenotype(self, phenotype: list) -> None:
-        self._phenotype = phenotype
-
-
-    @property
     def fitness(self) -> float:
         return self._fitness
 
     @fitness.setter
-    def fitness(self, fitness) -> None:
+    def fitness(self, fitness: float) -> None:
         self._fitness = fitness
 
     def generate(self):
@@ -75,3 +66,7 @@ class Chromosome(object):
         self.genotype.clear()
         for i in range(Parameter.num_of_genes):
             self.genotype.append(''.join(self.genes[i].genotype))
+
+
+
+

@@ -4,16 +4,15 @@ from PySide2 import QtWidgets
 from PySide2.QtCore import QObject
 import random as rd
 from setting import Parameter
+from algorithms import gene_read_compute_machine as grcm
 
 
 class Gene(object):
-    __slots__ = ('_genotype', '_phenotype', '_fitness')
+    __slots__ = ('_genotype', '_value_list')
     """
         
     Attributes:
         genotype:
-        phenotype:
-        fitness:
     """
 
     def __init__(self, genotype: list = None):
@@ -35,20 +34,12 @@ class Gene(object):
         self._genotype = genotype
 
     @property
-    def phenotype(self) -> list:
-        return self._phenotype
+    def value_list(self) -> list:
+        return self._value_list
 
-    @phenotype.setter
-    def phenotype(self, phenotype: list) -> None:
-        self._phenotype = phenotype
-
-    @property
-    def fitness(self) -> float:
-        return self._fitness
-
-    @fitness.setter
-    def fitness(self, fitness: float) -> None:
-        self._fitness = fitness
+    @value_list.setter
+    def value_list(self, value):
+        self._value_list = value
 
     def generate(self):
         """
@@ -61,7 +52,4 @@ class Gene(object):
             self.genotype.append(Parameter.func_ter_set[rd.randint(0, len(Parameter.func_ter_set) - 1)])
         for i in range(Parameter.tail_length):
             self.genotype.append(Parameter.terminal_set[rd.randint(0, len(Parameter.terminal_set) - 1)])
-        pass
-
-    def update(self):
         pass
