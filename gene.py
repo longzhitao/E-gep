@@ -4,7 +4,6 @@ from PySide2 import QtWidgets
 from PySide2.QtCore import QObject
 import random as rd
 from setting import Parameter
-from algorithms import gene_read_compute_machine as grcm
 
 
 class Gene(object):
@@ -49,7 +48,12 @@ class Gene(object):
 
         self.genotype = list()
         for i in range(Parameter.head_length):
-            self.genotype.append(Parameter.func_ter_set[rd.randint(0, len(Parameter.func_ter_set) - 1)])
+            if rd.randint(0, 1) == 1:
+                rand = rd.randint(0, len(Parameter.function_set) - 1)
+                self.genotype.append(Parameter.function_set[rand])
+            else:
+                rand = rd.randint(0, len(Parameter.terminal_set) - 1)
+                self.genotype.append(Parameter.terminal_set[rand])
         for i in range(Parameter.tail_length):
             self.genotype.append(Parameter.terminal_set[rd.randint(0, len(Parameter.terminal_set) - 1)])
         pass

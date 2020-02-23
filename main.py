@@ -6,7 +6,7 @@ from concurrent.futures import ThreadPoolExecutor
 import gene
 import setting
 import chromosome
-import genetic_operator as go
+from algorithms import GEP
 import algorithms
 
 
@@ -28,20 +28,8 @@ if __name__ == "__main__":
     # window = main()
     # window.show()
     # sys.exit(app.exec_())
-    # c = chromosome.Chromosome()
-    # print(c.genotype)
-    # c1 = chromosome.Chromosome()
-    # print(c1.genotype)
-    # print('-----------------------------------')
-    # a, b = go.gene_recombination(c, c1)
-    # print(a.genotype)
-    # print(b.genotype)
-    executor = ThreadPoolExecutor(max_workers=5)
-    executor.submit(test)
-    executor.submit(test)
-    executor.submit(test)
-    print(executor.done())
-    print(temp)
+    g = GEP()
+    g.run()
     pass
 
 
