@@ -89,6 +89,7 @@ class Parameter(object):
     sample_dependent_variable = _sample_dependent_variable
     sample_independent_list = _sample_independent_variable
 
+
     # sample_independent_list = [{'a': 5.7695},
     #                            {'a': -4.1206},
     #                            {'a': 4.652},

@@ -28,9 +28,9 @@ class GEP(object):
 
             if self.max_fitness != 0:
                 break
-        print('Num of generation: 1')
+        # print('Num of generation: 1')
         self.compute_probability()
-        self.display()
+        # self.display()
 
     def compute_max_fitness(self):
         flag = False
@@ -46,19 +46,20 @@ class GEP(object):
         else:
             self.repeat_times = self.repeat_times + 1
 
-    def show_result(self):
-        print('Result: Max No.' + str(self.max_fitness_index))
+    def show_result(self) -> list:
+        # print('Result: Max No.' + str(self.max_fitness_index))
         result = list()
         for i in range(Parameter.num_of_genes):
             et = e_t(self.population[self.max_fitness_index - 1].genes[i].genotype)
             et.create()
             result.append(et.infix_expression)
-        print(result)
+        # print(result)
         result_str = ''
         for i in range(Parameter.num_of_genes):
             result_str = result_str + ''.join(result[i])
             result_str = result_str + ' + '
-        print(result_str[0: -3])
+        # print(result_str[0: -3])
+        return result_str[0: -3]
 
     def run(self) -> None:
         generation = 1
@@ -193,6 +194,52 @@ def fitness_func(current_values: list, func_type: str = 'Absolute') -> float:
         for i in range(Parameter.num_of_samples):
             fitness_var = fitness_var + (M - abs(current_values[i] - true_values[i]))
     return fitness_var
+
+
+def pre_gene_read_compute_machine(genotype: list, sample_independent) -> float:
+    """
+
+    :param genotype:
+    :param sample_independent:
+    :return:
+    """
+    valid_length = get_gene_valid_length(genotype)
+    index = valid_length
+    try:
+        while True:
+            if genotype[index] in sample_independent:
+                genotype[index] = sample_independent.get(genotype[index])
+            else:
+                if genotype[index] == '+':
+                    genotype[index] = genotype[valid_length - 1] + genotype[valid_length]
+                    valid_length = valid_length - 2
+                elif genotype[index] == '-':
+                    genotype[index] = genotype[valid_length - 1] - genotype[valid_length]
+                    valid_length = valid_length - 2
+                elif genotype[index] == '*':
+                    genotype[index] = genotype[valid_length - 1] * genotype[valid_length]
+                    valid_length = valid_length - 2
+                elif genotype[index] == '/':
+                    genotype[index] = genotype[valid_length - 1] / genotype[valid_length]
+                    valid_length = valid_length - 2
+                elif genotype[index] == 'Q':
+                    genotype[index] = genotype[valid_length] ** (1 / 2)
+                    valid_length = valid_length - 1
+                elif genotype[index] == 'L':
+                    genotype[index] = math.log2(genotype[valid_length])
+                    valid_length = valid_length - 1
+                elif genotype[index] == 'S':
+                    genotype[index] = math.sin(genotype[valid_length])
+                    valid_length = valid_length - 1
+                elif genotype[index] == 'C':
+                    genotype[index] = math.cos(genotype[valid_length])
+                    valid_length = valid_length - 1
+            index = index - 1
+            if index < 0:
+                break
+    except (ZeroDivisionError, ValueError) as e:
+        return 0
+    return genotype[0]
 
 
 def gene_read_compute_machine(sample_index: int, genotype: list) -> float:

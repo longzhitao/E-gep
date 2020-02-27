@@ -4,7 +4,7 @@ from setting import Parameter
 priority = Parameter.priority
 
 
-def priority_level(operator1, operator2):
+def priority_level(operator1, operator2) ->int:
     if (operator1 in priority) and (operator2 in priority):
         if priority[operator1] >= priority[operator2]:
             return 1
@@ -32,7 +32,7 @@ class ExpressionTree(object):
         self.valid = 0
         pass
 
-    def create(self):
+    def create(self) -> None:
         index = 0
         queue = deque()
         queue.append(self.root)
@@ -66,7 +66,7 @@ class ExpressionTree(object):
         self.infix_expression.insert(len(self.infix_expression), ')')
         pass
 
-    def in_order_traversal(self, node):
+    def in_order_traversal(self, node: Node)->None:
         if node is not None:
             if node.l_child is not None:
                 temp = priority_level(node.var, node.l_child.var)
