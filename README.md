@@ -5,7 +5,9 @@
 ![image](https://github.com/longzhitao/E-gep/blob/master/images/matplotlib.jpg)
 
 参数配置在setting.py下，其中主要参数如下
+
     ```python
+    
     function_set = list('+-*/')  # 函数集
     terminal_set = list('abcdefghij')  # 终点集
     # func_ter_set = list('+-*/a')
